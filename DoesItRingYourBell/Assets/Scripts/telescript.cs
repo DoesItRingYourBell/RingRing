@@ -20,7 +20,7 @@ public class telescript : MonoBehaviour {
   }
 
   void activate(){
-    Debug.Log("helloWorld");
+    Debug.Log("Hit Object: " + gameObject.name);
     clip.Play();
     shake();
   }
