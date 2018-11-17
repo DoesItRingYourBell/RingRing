@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class telescript : MonoBehaviour {
-  AudioSource clip;
+  public AudioSource clip;
 	// Use this for initialization
-  bool shaking = false;
+  public bool shaking = false;
   int shaking_count = 0;
   float stepping = 10.0f;
   bool forward = true;

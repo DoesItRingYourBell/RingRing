@@ -43,7 +43,12 @@ public class GameScript : MonoBehaviour {
   void gotClicked(telescript test){
     if(checking){
       if(test == phoneToCheck){
-        StartCoroutine(blockUser());
+        //StartCoroutine(blockUser());
+        if(checkcounter != 0){
+          tele[chain[checkcounter - 1]].clip.Stop();
+          tele[chain[checkcounter - 1]].shaking = false;
+          tele[chain[checkcounter - 1]].transform.localRotation = Quaternion.Euler(0,0,0);
+        }
         Debug.Log("Right Phone!");
         if(checkcounter == chain.Count - 1){
           checking = false;
