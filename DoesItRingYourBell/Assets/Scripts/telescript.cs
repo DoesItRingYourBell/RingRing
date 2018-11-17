@@ -10,8 +10,10 @@ public class telescript : MonoBehaviour {
   float stepping = 10.0f;
   bool forward = true;
   bool left = true;
+  GameScript GameScript;
 	void Start () {
 		clip = this.GetComponent<AudioSource>();
+    GameScript = transform.parent.GetComponent<GameScript>();
 	}
 	
 	// Update is called once per frame
@@ -45,8 +47,10 @@ public class telescript : MonoBehaviour {
 
   void OnMouseDown()
   {
-    activate();
-    SendMessageUpwards("gotClicked", this);
+    if(GameScript.useractive){
+      activate();
+      SendMessageUpwards("gotClicked", this);
+    }
   }
 
   public void activate(){

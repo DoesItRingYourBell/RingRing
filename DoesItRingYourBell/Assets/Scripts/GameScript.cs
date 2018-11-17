@@ -10,6 +10,7 @@ public class GameScript : MonoBehaviour {
   private bool checking = false;
   private int checkcounter = 0;
   private bool flaweless = false;
+  public bool useractive = false;
   // Use this for initialization
   void Start () {
     tele = GetComponentsInChildren<telescript>();
@@ -33,6 +34,7 @@ public class GameScript : MonoBehaviour {
     checking = true;
     checkcounter = 0;
     flaweless = true;
+    useractive = true;
     //Debug.Log(chain);
   }
 
@@ -47,10 +49,12 @@ public class GameScript : MonoBehaviour {
     if(checking){
       //Debug.Log(checkcounter);
       if(test == phoneToCheck){
+        StartCoroutine(blockUser());
         Debug.Log("Right Phone!");
         if(checkcounter == chain.Count - 1){
           checking = false;
           Debug.Log("Right Chain!");
+          useractive = false;
           Appendchain();
         }else{
           checkcounter++;
@@ -59,6 +63,7 @@ public class GameScript : MonoBehaviour {
       }else{
         Debug.Log("Wrong Phone!");
         checking = false;
+        useractive = false;
       }
       
       /*if(checkcounter == chain.Count - 1){
@@ -73,9 +78,16 @@ public class GameScript : MonoBehaviour {
     yield return new WaitForSeconds(3);
     foreach (var phone in phones) {
       tele[phone].activate();
+      useractive = false;
       yield return new WaitForSeconds(3);
     }
     Debug.Log("Play Now");
     checkchain();
+  }
+
+  IEnumerator blockUser(){
+    useractive = false;
+    yield return new WaitForSeconds(3);
+    useractive = true;
   }
 }
