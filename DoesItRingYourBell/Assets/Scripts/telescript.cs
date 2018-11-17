@@ -46,10 +46,11 @@ public class telescript : MonoBehaviour {
   void OnMouseDown()
   {
     activate();
+    SendMessageUpwards("gotClicked", this);
   }
 
   public void activate(){
-    Debug.Log("Hit Object: " + gameObject.name);
+    //Debug.Log("Hit Object: " + gameObject.name);
     clip.Play();
     shake();
   }
