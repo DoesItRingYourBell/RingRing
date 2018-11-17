@@ -20,7 +20,7 @@ public class GameScript : MonoBehaviour {
   void Update () {
     if(once){
       once = false;
-      StartGame();
+      //StartGame();
     }
   }
 
@@ -64,6 +64,10 @@ public class GameScript : MonoBehaviour {
         useractive = false;
       }
     }
+  }
+
+  void clickStart(){
+    StartGame();
   }
 
   IEnumerator PlayMobil(List<int> phones){

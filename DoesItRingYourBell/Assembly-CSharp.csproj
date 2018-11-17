@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\clickStartButton.cs" />
     <Compile Include="Assets\Scripts\GameScript.cs" />
     <Compile Include="Assets\Scripts\telescript.cs" />
     <None Include="Assets\MSPT_Ruf_und_Telefontöne\telefone_metadaten.xml" />
