@@ -63,10 +63,20 @@ public class GameScript : MonoBehaviour {
   }
 
   void clickStart(){
-    StartGame();
+     StartCoroutine(prepareUser());
+     StartGame();
   }
 
-  IEnumerator PlayMobil(List<int> phones){
+    IEnumerator prepareUser()
+    {
+        Debug.Log("Ready?");
+        yield return new WaitForSeconds(1);
+        Debug.Log("Set!");
+        yield return new WaitForSeconds(1);
+        Debug.Log("Go!");
+    }
+
+    IEnumerator PlayMobil(List<int> phones){
     yield return new WaitForSeconds(3);
     foreach (var phone in phones) {
       tele[phone].activate();
