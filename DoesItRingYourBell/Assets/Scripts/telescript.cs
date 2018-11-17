@@ -39,7 +39,7 @@ public class telescript : MonoBehaviour {
       }
       transform.localRotation = Quaternion.Euler(rot.eulerAngles.x, rot.eulerAngles.y, newRot);
       shaking_count++;
-      if(shaking_count == 24){
+      if(shaking_count == 48){
         shaking = false;
       }
     }
@@ -54,9 +54,9 @@ public class telescript : MonoBehaviour {
   }
 
   public void activate(){
-    //Debug.Log("Hit Object: " + gameObject.name);
     clip.Play();
     shake();
+    clip.SetScheduledEndTime(AudioSettings.dspTime+3);
   }
 
   void shake(){

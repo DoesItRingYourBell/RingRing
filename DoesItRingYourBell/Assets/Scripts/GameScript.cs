@@ -35,7 +35,6 @@ public class GameScript : MonoBehaviour {
     checkcounter = 0;
     flaweless = true;
     useractive = true;
-    //Debug.Log(chain);
   }
 
   void Appendchain(){
@@ -47,7 +46,6 @@ public class GameScript : MonoBehaviour {
 
   void gotClicked(telescript test){
     if(checking){
-      //Debug.Log(checkcounter);
       if(test == phoneToCheck){
         StartCoroutine(blockUser());
         Debug.Log("Right Phone!");
@@ -65,12 +63,6 @@ public class GameScript : MonoBehaviour {
         checking = false;
         useractive = false;
       }
-      
-      /*if(checkcounter == chain.Count - 1){
-        checking = false;
-      }else{
-        checkcounter++;
-      }*/
     }
   }
 
