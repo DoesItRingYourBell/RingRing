@@ -17,5 +17,14 @@ public class clickStartButton : MonoBehaviour {
   void OnMouseDown()
   {
     SendMessageUpwards("clickStart");
+    StartCoroutine(prepareUser());
+  }
+
+  IEnumerator prepareUser(){
+    Debug.Log("Ready?");
+    yield return new WaitForSeconds(1);
+    Debug.Log("Set!");
+    yield return new WaitForSeconds(1);
+    Debug.Log("Go!");
   }
 }
