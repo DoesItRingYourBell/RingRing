@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour {
   private telescript[] tele;
@@ -12,6 +13,7 @@ public class GameScript : MonoBehaviour {
   private bool flaweless = false;
   public bool useractive = false;
   private bool gameActive = false;
+  public Text text;
   // Use this for initialization
   void Start () {
     tele = GetComponentsInChildren<telescript>();
@@ -52,17 +54,24 @@ public class GameScript : MonoBehaviour {
 
   void gotClicked(telescript test){
     if(checking){
+      if(checkcounter != 0){
+        tele[chain[checkcounter - 1]].clip.Stop();
+        tele[chain[checkcounter - 1]].shaking = false;
+        tele[chain[checkcounter - 1]].transform.localRotation = Quaternion.Euler(0,0,0);
+      if(tele[chain[checkcounter - 1]] == test){
+          tele[chain[checkcounter - 1]].activate();
+        }
+      }
       if(test == phoneToCheck){
         //StartCoroutine(blockUser());
-        if(checkcounter != 0 && tele[chain[checkcounter - 1]] != tele[chain[checkcounter]]){
-          tele[chain[checkcounter - 1]].clip.Stop();
-          tele[chain[checkcounter - 1]].shaking = false;
-          tele[chain[checkcounter - 1]].transform.localRotation = Quaternion.Euler(0,0,0);
-        }
         Debug.Log("Right Phone!");
+        text.text = "Right Phone!";
+        StartCoroutine(removeText());
         if(checkcounter == chain.Count - 1){
           checking = false;
           Debug.Log("Right Chain!");
+          text.text = "Right Chain!";
+          StartCoroutine(removeText());
           useractive = false;
           Appendchain();
         }else{
@@ -71,6 +80,8 @@ public class GameScript : MonoBehaviour {
         }
       }else{
         Debug.Log("Wrong Phone!");
+        text.text = "Wrong Phone!";
+        StartCoroutine(removeText());
         checking = false;
         useractive = false;
         gameActive = false;
@@ -85,10 +96,14 @@ public class GameScript : MonoBehaviour {
     IEnumerator prepareUser()
     {
         Debug.Log("Ready?");
+        text.text = "Ready?";
         yield return new WaitForSeconds(1);
         Debug.Log("Set!");
+        text.text = "Set!";
         yield return new WaitForSeconds(1);
         Debug.Log("Go!");
+        text.text = "Go!";
+        StartCoroutine(removeText());
     }
 
     IEnumerator PlayMobil(List<int> phones){
@@ -99,7 +114,9 @@ public class GameScript : MonoBehaviour {
       yield return new WaitForSeconds(3);
     }
     Debug.Log("Play Now");
+    text.text = "Play Now";
     checkchain();
+    StartCoroutine(removeText());
   }
 
   IEnumerator blockUser(){
@@ -107,4 +124,10 @@ public class GameScript : MonoBehaviour {
     yield return new WaitForSeconds(3);
     useractive = true;
   }
+
+  IEnumerator removeText(){
+    yield return new WaitForSeconds(1);
+    text.text = "";
+  }
+
 }
