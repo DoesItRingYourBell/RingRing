@@ -11,6 +11,7 @@ public class GameScript : MonoBehaviour {
   private int checkcounter = 0;
   private bool flaweless = false;
   public bool useractive = false;
+  private bool gameActive = false;
   // Use this for initialization
   void Start () {
     tele = GetComponentsInChildren<telescript>();
@@ -21,8 +22,17 @@ public class GameScript : MonoBehaviour {
   }
 
   void StartGame(){
-    chain = new List<int>();
-    Appendchain();
+    if(!gameActive){
+      gameActive = true;
+      StartCoroutine(prepareUser());
+      for(int i = 0; i < tele.Length; i++){
+        tele[i].shaking = false;
+        tele[i].clip.Stop();
+        tele[i].transform.localRotation = Quaternion.Euler(0,0,0);
+      }
+      chain = new List<int>();
+      Appendchain();
+    }
   }
 
   void checkchain(){
@@ -44,7 +54,7 @@ public class GameScript : MonoBehaviour {
     if(checking){
       if(test == phoneToCheck){
         //StartCoroutine(blockUser());
-        if(checkcounter != 0){
+        if(checkcounter != 0 && tele[chain[checkcounter - 1]] != tele[chain[checkcounter]]){
           tele[chain[checkcounter - 1]].clip.Stop();
           tele[chain[checkcounter - 1]].shaking = false;
           tele[chain[checkcounter - 1]].transform.localRotation = Quaternion.Euler(0,0,0);
@@ -63,12 +73,12 @@ public class GameScript : MonoBehaviour {
         Debug.Log("Wrong Phone!");
         checking = false;
         useractive = false;
+        gameActive = false;
       }
     }
   }
 
   void clickStart(){
-     StartCoroutine(prepareUser());
      StartGame();
   }
 
