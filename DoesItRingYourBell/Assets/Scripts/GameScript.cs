@@ -62,14 +62,9 @@ public class GameScript : MonoBehaviour {
       }
       if(test == phoneToCheck){
         //StartCoroutine(blockUser());
-        Debug.Log("Right Phone!");
-        text.text = "Right Phone!";
-        StartCoroutine(removeText());
         if(checkcounter == chain.Count - 1){
+          text.text = (checkcounter + 1).ToString();
           checking = false;
-          Debug.Log("Right Chain!");
-          text.text = "Right Chain!";
-          StartCoroutine(removeText());
           useractive = false;
           Appendchain();
         }else{
@@ -111,10 +106,7 @@ public class GameScript : MonoBehaviour {
       useractive = false;
       yield return new WaitForSeconds(3);
     }
-    Debug.Log("Play Now");
-    text.text = "Play Now";
     checkchain();
-    StartCoroutine(removeText());
   }
 
   IEnumerator blockUser(){
