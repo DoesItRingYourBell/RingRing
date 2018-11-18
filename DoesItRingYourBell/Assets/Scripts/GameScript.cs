@@ -13,12 +13,13 @@ public class GameScript : MonoBehaviour {
   private bool flaweless = false;
   public bool useractive = false;
   private bool gameActive = false;
-  public Canvas canvas;
-  private Text text;
+  public Canvas playgroundCanvas;
+  private Text playgroundText;
+  public Text counterText;
 
-  void Start () {
+    void Start () {
     tele = GetComponentsInChildren<telescript>();
-    text = canvas.GetComponentInChildren<Text>();
+    playgroundText = playgroundCanvas.GetComponentInChildren<Text>();
   }
 
   void StartGame(){
@@ -63,7 +64,7 @@ public class GameScript : MonoBehaviour {
       if(test == phoneToCheck){
         //StartCoroutine(blockUser());
         if(checkcounter == chain.Count - 1){
-          text.text = (checkcounter + 1).ToString();
+          counterText.text = (checkcounter + 1).ToString();
           checking = false;
           useractive = false;
           Appendchain();
@@ -73,8 +74,12 @@ public class GameScript : MonoBehaviour {
         }
       }else{
         Debug.Log("Wrong Phone!");
-        text.text = "Wrong Phone!";
-        StartCoroutine(removeText());
+        var image = playgroundCanvas.GetComponent<Image>();
+        var tempColor = image.color;
+        tempColor.a = 0.8f;
+        image.color = tempColor;
+        playgroundText.text = "Spiel verloren!";
+        //StartCoroutine(removeText());
         checking = false;
         useractive = false;
         gameActive = false;
@@ -89,13 +94,13 @@ public class GameScript : MonoBehaviour {
     IEnumerator prepareUser()
     {
         Debug.Log("Ready?");
-        text.text = "Ready?";
+        playgroundText.text = "Ready?";
         yield return new WaitForSeconds(1);
         Debug.Log("Set!");
-        text.text = "Set!";
+        playgroundText.text = "Set!";
         yield return new WaitForSeconds(1);
         Debug.Log("Go!");
-        text.text = "Go!";
+        playgroundText.text = "Go!";
         StartCoroutine(removeText());
     }
 
@@ -117,8 +122,8 @@ public class GameScript : MonoBehaviour {
 
   IEnumerator removeText(){
     yield return new WaitForSeconds(1);
-    text.text = "";        
-    var image = canvas.GetComponent<Image>();
+    playgroundText.text = "";        
+    var image = playgroundCanvas.GetComponent<Image>();
     var tempColor = image.color;
     tempColor.a = 0f;
     image.color = tempColor;
