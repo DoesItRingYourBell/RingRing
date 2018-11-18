@@ -13,14 +13,12 @@ public class GameScript : MonoBehaviour {
   private bool flaweless = false;
   public bool useractive = false;
   private bool gameActive = false;
-  public Text text;
-  // Use this for initialization
+  public Canvas canvas;
+  private Text text;
+
   void Start () {
     tele = GetComponentsInChildren<telescript>();
-  }
-  
-  // Update is called once per frame
-  void Update () {
+    text = canvas.GetComponentInChildren<Text>();
   }
 
   void StartGame(){
@@ -127,7 +125,11 @@ public class GameScript : MonoBehaviour {
 
   IEnumerator removeText(){
     yield return new WaitForSeconds(1);
-    text.text = "";
+    text.text = "";        
+    var image = canvas.GetComponent<Image>();
+    var tempColor = image.color;
+    tempColor.a = 0f;
+    image.color = tempColor;
   }
 
 }
