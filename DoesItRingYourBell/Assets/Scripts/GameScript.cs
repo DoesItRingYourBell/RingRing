@@ -24,6 +24,7 @@ public class GameScript : MonoBehaviour {
 
   void StartGame(){
     if(!gameActive){
+      counterText.text = "0";
       gameActive = true;
       StartCoroutine(prepareUser());
       for(int i = 0; i < tele.Length; i++){
@@ -94,13 +95,13 @@ public class GameScript : MonoBehaviour {
     IEnumerator prepareUser()
     {
         Debug.Log("Ready?");
-        playgroundText.text = "Ready?";
-        yield return new WaitForSeconds(1);
+        playgroundText.text = "Auf die Plätze.";
+        yield return new WaitForSeconds(2);
         Debug.Log("Set!");
-        playgroundText.text = "Set!";
+        playgroundText.text = "Fertig?";
         yield return new WaitForSeconds(1);
         Debug.Log("Go!");
-        playgroundText.text = "Go!";
+        playgroundText.text = "Los!";
         StartCoroutine(removeText());
     }
 
