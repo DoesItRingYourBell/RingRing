@@ -16,6 +16,7 @@ public class GameScript : MonoBehaviour {
   public Canvas playgroundCanvas;
   private Text playgroundText;
   public Text counterText;
+  public Button newGameButton;
 
     void Start () {
     tele = GetComponentsInChildren<telescript>();
@@ -26,6 +27,7 @@ public class GameScript : MonoBehaviour {
     if(!gameActive){
       counterText.text = "0";
       gameActive = true;
+      newGameButton.interactable = false;
       StartCoroutine(prepareUser());
       for(int i = 0; i < tele.Length; i++){
         tele[i].shaking = false;
@@ -84,6 +86,7 @@ public class GameScript : MonoBehaviour {
         checking = false;
         useractive = false;
         gameActive = false;
+        newGameButton.interactable = true;
       }
     }
   }
@@ -96,7 +99,7 @@ public class GameScript : MonoBehaviour {
     {
         Debug.Log("Ready?");
         playgroundText.text = "Auf die Plätze.";
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Debug.Log("Set!");
         playgroundText.text = "Fertig?";
         yield return new WaitForSeconds(1);
